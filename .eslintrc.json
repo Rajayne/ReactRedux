@@ -28,6 +28,7 @@
     "rules": {
         "react/prop-types": "off",
         "no-console": "off",
-        "react/no-unescaped-entities": 0
+        "react/no-unescaped-entities": 0,
+        "default-param-last": 0
     }
 }

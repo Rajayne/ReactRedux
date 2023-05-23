@@ -6,6 +6,7 @@ eslint --init
 ## React
 
 npm install react-redux
+npm install redux
 
 ## Redux Intro
 
