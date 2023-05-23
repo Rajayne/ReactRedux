@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# React Redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+npm install eslint
+eslint --init
 
-## Available Scripts
+## React
 
-In the project directory, you can run:
+npm install react-redux
 
-### `npm start`
+## Redux Intro
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Include html scripts or npm install redux.
+const store = Redux.createStore();
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Reducer
 
-### `npm test`
+Must pass in a reducer in createStore();
+Reducer accepts a **state** object and an **action** object
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- The action is used to return a new state object
+- Cannot create a store without specifiying initial state.
+- Return store with store.getState()
 
-### `npm run build`
+### Pure Function
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Reducer should be pure functions (should not mutate inputs)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Methods that mutate:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- push/pop
+- shift/unshift
+- splice
+- modifying keys in object/array
 
-### `npm run eject`
+Methods that do not mutate:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- map
+- filter
+- spread/Object.assign
+- concat
+- slice
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Actions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Never called directly, it is intercepted and processed by a reducer.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Actions are instructions that tell reducers how to adjust state.
+- Objects that contain a `type` key, which is conventionally UPPER_SNAKE_CASE strings.
+- Run `dispatch` on store to enact action.
+- Can include additional keys besides type like `payload`.
 
-## Learn More
+> _store.dispatch()_ without passing in an action or object with key of _type_ will return an error.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Switch
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Instead of using if statements, use switch statement.
 
-### Code Splitting
+```
+Example:
+if (action.type === "LOG") {
+    return {... state, count: state.count + 1};
+} else if (action.type === "DELETE") {
+    return {... state, count: state.count - 1};
+} else {
+    return state;
+};
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+switch (action.type) {
+    case "LOG":
+        return {... state, count: state.count + 1};
+    case "DELETE":
+        return {... state, count: state.count - 1};
+    default: return state
+}
+```
